@@ -1,0 +1,216 @@
+{% set qt = data.quantity %}
+{% set bp = data.buying_price %}
+{% set sp = data.selling_price %}
+
+<table>
+  <thead>
+    <tr>
+      <th>Titolo</th>
+      <th>Volume</th>
+      <th>Acquisto</th>
+      <th>Attuale</th>
+      <th>Capitale investito</th>
+      <th>Capitale al valore presente</th>
+      <th>Variazione percentuale</th>
+      <th>Guadagno lordo</th>
+      <th>Commissioni all'acquisto</th>
+      <th>Commissioni alla vendita</th>
+      <th>Tobin tax</th>
+      <th>Capital gain</th>
+      <th>Variazione netta</th>
+      <th>Guadagno netto</th>
+      <th>No Loss</th>
+      <th>Stop Loss 50%</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        {% if data.name is defined %}
+          {{ data.name|capitalize }}
+        {% endif %}        
+      </td>
+      <td>{{ qt|number_format(0, ',', '.') }}</td>
+      <td>{{ bp|number_format(3, ',', '.') }}</td>
+      <td>{{ sp|number_format(3, ',', '.') }}</td>
+      <td>
+        {# Capitale investito #}
+        {% set ci = qt * bp %}
+        {# number_format(decimals, decimalSeparator, thousandSeparator) #}
+        {{ ci|number_format(2, ',', '.') }}
+      </td>
+      <td>
+        {# Capitale al valore presente #}
+        {% set cp = qt * sp %}
+        {{ cp|number_format(2, ',', '.') }}
+      </td>
+      {% set vp = ((cp - ci)/ci)*100 %}
+      <td class="{% if vp < 0 %}red{% else %}green{% endif %}">
+        {# Variazione percentuale #}
+
+        {{ vp|number_format(2, ',', '.') }}%
+      </td>
+      {% set gl = cp - ci %}
+      <td class="{% if gl < 0 %}red{% else %}green{% endif %}">
+        {# Guadagno lordo #}
+
+        {{ gl|number_format(2, ',', '.') }}
+      </td>
+      <td>
+        {# Commissioni all'acquisto #}
+        {% set ca = min(max((ci / 100)* 0.19, 2.95), 19) %}
+        {{ ca|number_format(2, ',', '.') }}
+      </td>
+      <td>
+        {# Commissioni alla vendita #}
+        {% set cv = min(max((cp / 100)*0.19, 2.95), 19) %}
+        {{ cv|number_format(2, ',', '.') }}        
+      </td>
+      <td>
+        {# Tobin tax #}
+        {% set tt = (ci / 100) * 0.10 %}
+        {{ tt|number_format(2, ',', '.') }}
+      </td>
+      <td>
+        {# Capital gain #}
+        {% set cg = ((cp - ci - ca - cv) / 100) * 26 %}
+        {{ max(cg,0)|number_format(2, ',', '.') }}
+      </td>
+      {% set vn = ((cp - (ca + cv + tt + max(cg,0))) * 100 / ci) - 100 %}
+      <td class="{% if vn < 0 %}red{% else %}green{% endif %}">
+        {# Variazione netta #}
+        
+        {{ vn|number_format(2, ',', '.') }}%
+      </td>
+      
+      {% if gl > 0 %}
+        {% set gn = gl - ca - cv - tt - cg %}
+      {% else %} 
+        {% set gn = -(gl|abs + ca + cv + tt + max(cg,0)) %}
+      {% endif %}       
+
+      <td class="{% if gn < 0 %}red{% else %}green{% endif %}">
+        {# Guadagno netto #}
+        
+        {{ gn|number_format(2, ',', '.') }}
+      </td>
+      <td>
+        {# trailing stop no loss #}
+        
+        {% if (((cp / 100)*0.19) > 2.95) and (((cp / 100)*0.19) < 19) %}
+          {% set ts = ( ( ci+ca+( (5/4) * tt) ) / (0.9981 * qt) ) %}
+        {% else %}
+          {% set ts = ( ( ci+ca+( (5/4) * tt) + cv ) / qt ) %}
+        {% endif %}        
+        
+        {{ ts|number_format(3, ',', '.') }}
+      </td>
+      <td>
+        {# trailing stop 50% del guadagno attuale #}
+
+        {% if (((cp / 100)*0.19) > 2.95) and (((cp / 100)*0.19) < 19) %}
+          {% set mts = ( ( ( (5/4) * (gn * 0.5) )+ci+ca+( (5/4) * tt) ) / (0.9981 * qt) ) %}
+        {% else %}
+          {% set mts = ( ( ( (5/4) * (gn * 0.5) )+ci+ca+( (5/4) * tt) + cv ) / qt ) %}
+        {% endif %}        
+        
+        {{ mts|number_format(3, ',', '.') }}
+      </td>
+      <td></td>
+    </tr>    
+    {% for key,session_data in app.session.get('data') %}
+      <tr class="{{ key }}">
+        <td>
+          {% if session_data.name is defined %}
+            {{ session_data.name|capitalize }} 
+          {% endif %}          
+        </td>
+        <td>{{ session_data.quantity|number_format(0, ',', '.') }}</td>
+        <td>{{ session_data.buying_price|number_format(3, ',', '.') }}</td>
+        <td>{{ session_data.selling_price|number_format(3, ',', '.') }}</td>
+        <td>
+          {% set s_ci = session_data.quantity * session_data.buying_price %}
+          {{ s_ci|number_format(2, ',', '.') }}
+        </td>
+        <td>
+          {% set s_cp = session_data.quantity * session_data.selling_price %}
+          {{ s_cp|number_format(2, ',', '.') }}
+        </td>
+        <td>
+          {% set s_vp = ((s_cp - s_ci)/s_ci)*100 %}
+          {{ s_vp|number_format(2, ',', '.') }}%
+        </td>
+        <td>
+          {# Guadagno lordo #}
+          {% set s_gl = s_cp - s_ci %}
+          {{ s_gl|number_format(2, ',', '.') }}          
+        </td>
+        <td>
+          {# Commissioni all'acquisto #}
+          {% set s_ca = min(max((s_ci / 100)* 0.19, 2.95), 19) %}
+          {{ s_ca|number_format(2, ',', '.') }}          
+        </td>
+        <td>
+          {# Commissioni alla vendita #}
+          {% set s_cv = min(max((s_cp / 100)*0.19, 2.95), 19) %}
+          {{ s_cv|number_format(2, ',', '.') }}              
+        </td>
+        <td>
+          {# Tobin tax #}
+          {% set s_tt = (s_ci / 100) * 0.10 %}
+          {{ s_tt|number_format(2, ',', '.') }}          
+        </td>
+        <td>
+          {# Capital gain #}
+          {% set s_cg = ((s_cp - s_ci - s_ca - s_cv) / 100) * 26 %}
+          {{ max(s_cg,0)|number_format(2, ',', '.') }}          
+        </td>
+        {% set s_vn = ((s_cp - (s_ca + s_cv + s_tt + max(s_cg,0))) * 100 / s_ci) - 100 %}
+        <td class="{% if s_vn < 0 %}red{% else %}green{% endif %}">
+          {# Variazione netta #}
+          
+          {{ s_vn|number_format(2, ',', '.') }}%          
+        </td>
+        {% if s_gl > 0 %}
+          {% set s_gn = s_gl - s_ca - s_cv - s_tt - s_cg %}
+        {% else %} 
+          {% set s_gn = -(s_gl|abs + s_ca + s_cv + s_tt + max(s_cg,0)) %}
+        {% endif %}           
+        <td class="{% if s_gn < 0 %}red{% else %}green{% endif %}">
+          {# Guadagno netto #}
+
+          {{ s_gn|number_format(2, ',', '.') }}          
+        </td>
+        <td>
+          {# trailing stop no loss #}
+
+          {% if (((s_cp / 100)*0.19) > 2.95) and (((s_cp / 100)*0.19) < 19) %}
+            {% set s_ts = ( ( s_ci+s_ca+( (5/4) * s_tt) ) / (0.9981 * session_data.quantity) ) %}
+          {% else %}
+            {% set s_ts = ( ( s_ci+s_ca+( (5/4) * s_tt) + s_cv ) / session_data.quantity ) %}
+          {% endif %}        
+
+          {{ s_ts|number_format(3, ',', '.') }}
+        </td>
+        <td>
+          {# trailing stop 50% del guadagno attuale #}
+
+          {% if (((s_cp / 100)*0.19) > 2.95) and (((s_cp / 100)*0.19) < 19) %}
+            {% set s_mts = ( ( ( (5/4) * (s_gn * 0.5) )+s_ci+s_ca+( (5/4) * s_tt) ) / (0.9981 * session_data.quantity) ) %}
+          {% else %}
+            {% set s_mts = ( ( ( (5/4) * (s_gn * 0.5) )+s_ci+s_ca+( (5/4) * s_tt) + s_cv ) / session_data.quantity ) %}
+          {% endif %}        
+
+          {{ s_mts|number_format(3, ',', '.') }}
+        </td>     
+        <td>
+          {# removeFromSession(key) #}
+          <a href="{{ path('remove_from_session', {'key' : key}) }}">Remove</a>
+          <br/>
+          <a href="{{ path('set_in_form', {'key' : key}) }}">Set</a>
+        </td>
+      </tr>
+    {% endfor %}       
+  </tbody>
+</table>

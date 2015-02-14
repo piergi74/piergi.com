@@ -1,0 +1,77 @@
+<?php
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+namespace PRG\FrontendBundle\Document;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+
+/**
+ * Description of Product
+ *
+ * @author PRG
+ */
+/**
+ * @MongoDB\Document
+ */
+class User {
+    /**
+     * @MongoDB\Id
+     */
+    protected $id;
+
+    /**
+     * @MongoDB\String
+     */
+    protected $firstName;
+    /**
+     * @MongoDB\String
+     */
+    protected $lastName;
+    /**
+     * @MongoDB\String
+     */
+    protected $industry;
+    /**
+     * @MongoDB\Timestamp
+     */
+    protected $lastModifiedTimestamp;
+    /**
+     * @MongoDB\String
+     */
+    protected $pictureUrl;    
+    
+
+    /**
+     * @MongoDB\Collection
+     */
+    protected $educations;       
+    /**
+     * @MongoDB\Collection
+     */
+    protected $languages;   
+    /**
+     * @MongoDB\Collection
+     */
+    protected $positions;   
+    /**
+     * @MongoDB\Collection
+     */
+    protected $skills;    
+    
+    
+    
+    /**
+     * Get id
+     *
+     * @return id $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+}

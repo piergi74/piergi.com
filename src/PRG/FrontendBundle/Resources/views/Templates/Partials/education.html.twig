@@ -1,0 +1,21 @@
+<div class="container">
+  <!-- Main component for a primary marketing message or call to action -->
+  <div class="jumbotron education">
+    <h1>{{ education.schoolName }}</h1>
+    <h2>{{ education.degree }}</h2>
+    {% if education.fieldOfStudy is defined %}
+      <h3>{{ education.fieldOfStudy }}</h3> 
+    {% endif %}          
+    {% if (education.startDate is defined) and (education.endDate is defined) %}
+      {% set startDate = education.startDate.year %}
+      {% set endDate = education.endDate.year %}
+      <p>{{ startDate }} - {{ endDate }}</p> 
+    {% elseif education.startDate is defined %} 
+      {% set startDate = education.startDate.year %}
+      <p>{{ startDate }}</p>
+    {% elseif education.endDate is defined %}
+      {% set endDate = education.endDate.year %}
+      <p>{{ endDate }}</p> 
+    {% endif %}            
+  </div>
+</div>

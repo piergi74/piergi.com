@@ -1,0 +1,27 @@
+{# src/PRG/FrontendBundle/Resources/views/Templates/start.html.twig #}
+
+{% extends 'FrontendBundle::layout.html.twig' %}
+
+{% block title %}
+  Piergi.com - Start Page
+{% endblock %}
+
+{% block body %}
+  Hello start!
+  <br/>
+  {{ parent() }}
+  <br/>
+  {% include 'FrontendBundle:Templates/Partials:partial.html.twig' %}
+
+  <br/>
+  <a href="{{ path('stoke') }}">Stokes</a>
+  
+  
+  <br/>
+  {# bundle:controller:action #}
+  {{ render(controller(
+      'FrontendBundle:Frontend:ajax',
+      { 'max': 3 }
+  )) }}
+    
+{% endblock %}

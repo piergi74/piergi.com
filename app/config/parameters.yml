@@ -1,0 +1,24 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: symfony2
+    database_user: root
+    database_password: null
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    locale: en
+    secret: c8019725f603b84d2a7d405aad893fd7dbcdb54b
+    
+    linkedin.api_key: 75enbyyzr86ojf
+    linkedin.secret_key: RyyF7a3CMrD1JAgd
+    linkedin.redirect_uri: http://piergi.localhost/app_dev.php/update/
+    
+    mailer_transport: gmail
+    mailer_host:      ~
+    mailer_user:      piergiorgio.pili  
+    mailer_password:  muzzigol
+    

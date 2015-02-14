@@ -1,0 +1,20 @@
+{# src/PRG/FrontendBundle/Resources/views/layout.html.twig #}
+
+{% extends '::base.html.twig' %}
+
+{% block title %}
+  Piergi.com
+{% endblock %}
+
+{% block stylesheets %}
+  <link href="{{ asset('bundles/frontend/css/main.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+  The parent body in layout is now here
+{% endblock %}
+
+{% block javascripts %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>  
+  <script src="{{ asset('bundles/frontend/js/main.js') }}"></script> 
+{% endblock %}

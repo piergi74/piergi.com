@@ -1,0 +1,38 @@
+<div class="container">
+
+  <!-- Main component for a primary marketing message or call to action -->
+  <div class="jumbotron wb row" id="about">
+
+
+    <div class="col-md-4">
+      <!--img src="{{ user.pictureUrl }}" alt="Piergi" /-->
+      <img src="{{ asset('bundles/frontend/images/piergi_profile_168x191.jpg', absolute=true) }}" alt="Piergiorgio Pili" />
+    </div>          
+
+    <div class="col-md-8" id="about1">
+
+      <h1>{{ user.firstName }} {{ user.lastName }}</h1>
+
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <p></p>
+              <p>To see the difference between static and fixed top navbars, just scroll.</p>   
+
+            </td>
+            <td>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <a class="btn btn-lg btn-primary" href="http://www.hotelplayer.com" target="_blank" role="button">hotelplayer.com &raquo;</a>
+      </p>
+
+    </div>
+  </div>
+
+</div> <!-- /container --> 
