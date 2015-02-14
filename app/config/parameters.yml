@@ -20,5 +20,5 @@ parameters:
     mailer_transport: gmail
     mailer_host:      ~
     mailer_user:      piergiorgio.pili  
-    mailer_password:  muzzigol
+    mailer_password:  xxxxx
     
