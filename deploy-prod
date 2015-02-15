@@ -1,0 +1,8 @@
+#!/bin/bash
+
+svn up ../;php symfony fondosalario:deploy-website ../trunk/ localhost -mfondosalario_preprod -ursyncadmin -econfig/rsync_exclude_preprod.txt --go --delete
+
+DIR_LOG=/var/www/vhosts/fondosalario.piergi.com/httpdocs/
+cd $DIR_LOG
+
+php symfony cc
