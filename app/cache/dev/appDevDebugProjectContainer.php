@@ -2697,7 +2697,7 @@ class appDevDebugProjectContainer extends Container
     {
         $a = new \Swift_Transport_Esmtp_AuthHandler(array(0 => new \Swift_Transport_Esmtp_Auth_CramMd5Authenticator(), 1 => new \Swift_Transport_Esmtp_Auth_LoginAuthenticator(), 2 => new \Swift_Transport_Esmtp_Auth_PlainAuthenticator()));
         $a->setUsername('piergiorgio.pili');
-        $a->setPassword('muzzigol');
+        $a->setPassword('xxxxx');
         $a->setAuthMode(NULL);
 
         $this->services['swiftmailer.mailer.default.transport'] = $instance = new \Swift_Transport_EsmtpTransport(new \Swift_Transport_StreamBuffer(new \Swift_StreamFilters_StringReplacementFilterFactory()), array(0 => $a), new \Swift_Events_SimpleEventDispatcher());
@@ -3947,7 +3947,7 @@ class appDevDebugProjectContainer extends Container
             'kernel.root_dir' => $this->targetDirs[2],
             'kernel.environment' => 'dev',
             'kernel.debug' => true,
-            'kernel.name' => 'ap_',
+            'kernel.name' => 'app',
             'kernel.cache_dir' => __DIR__,
             'kernel.logs_dir' => ($this->targetDirs[2].'\\logs'),
             'kernel.bundles' => array(
@@ -3979,7 +3979,7 @@ class appDevDebugProjectContainer extends Container
             'mailer_transport' => 'smtp',
             'mailer_host' => '127.0.0.1',
             'mailer_user' => 'piergiorgio.pili',
-            'mailer_password' => 'muzzigol',
+            'mailer_password' => 'xxxxx',
             'locale' => 'en',
             'secret' => 'c8019725f603b84d2a7d405aad893fd7dbcdb54b',
             'linkedin.api_key' => '75enbyyzr86ojf',
@@ -4374,7 +4374,7 @@ class appDevDebugProjectContainer extends Container
             'swiftmailer.mailer.default.transport.smtp.port' => 25,
             'swiftmailer.mailer.default.transport.smtp.host' => '127.0.0.1',
             'swiftmailer.mailer.default.transport.smtp.username' => 'piergiorgio.pili',
-            'swiftmailer.mailer.default.transport.smtp.password' => 'muzzigol',
+            'swiftmailer.mailer.default.transport.smtp.password' => 'xxxxx',
             'swiftmailer.mailer.default.transport.smtp.auth_mode' => NULL,
             'swiftmailer.mailer.default.transport.smtp.timeout' => 30,
             'swiftmailer.mailer.default.transport.smtp.source_ip' => NULL,
