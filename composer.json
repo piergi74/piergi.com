@@ -20,7 +20,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "doctrine/mongodb-odm": "1.0.*@dev",
         "doctrine/mongodb-odm-bundle": "3.0.*@dev",
-        "linkedinapi/linkedin": "dev-master"
+        "linkedinapi/linkedin": "dev-master",
+        "gedmo/doctrine-extensions": "dev-master"
     },
     "minimum-stability": "dev",
     "require-dev": {
