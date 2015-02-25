@@ -9,8 +9,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+function filter() {
+  
+  $('ul.dropdown-menu > li').on({
+    click: function(e) {
+      e.preventDefault();
+
+      //alert('clicked '+this.id);
+      $('.positions').hide();
+      $('.educations').hide();
+      $('.positions.'+this.id).show();
+      //$('body').scrollTo('.positions.'+this.id);
+      $('.navbar-toggle').click();
+      $('html, body').animate({
+          scrollTop: $('.positions.'+this.id).offset().top
+      }, 1000);      
+      
+    }
+  });
+}
 
 function setupStoke2() {
+  
   $('#stoke_calculate').on({
     click: function(e) {
       e.preventDefault();
@@ -72,6 +92,7 @@ function doSomething() {
 }
 
 $(function() {
+  filter();
   //doSomething();
   //setupStoke();
 });

@@ -1,32 +1,57 @@
-<div class="container">
+{% if position.location.country %}
+  {% set code = position.location.country.code %}
+{% else %}
+  {% set code = 'EU' %}
+{% endif %}
+
+<div class="positions container {{code}}">
   <!-- Main component for a primary marketing message or call to action -->
   <div class="jumbotron">
     <h1>{{ position.title }}</h1>
-    <h2>{{ position.company.name }}</h2>
-    {% if position.location.country is defined %}
-      {% set code = position.location.country.code %}
-    {% else %}
-      {% set code = 'EU' %}
+    {% if position.company.name %}
+      <h2>{{ position.company.name }}</h2>
+    {% endif %}    
+
+    {% if position.location.name %}
+      <h3>
+        {% include 'FrontendBundle:Templates/Partials/locations:uk.html.twig' with {'country': code,'name': position.location.name } %}
+      </h3> 
     {% endif %}
-    <h3>
-      {% include 'FrontendBundle:Templates/Partials/locations:uk.html.twig' with {'country': code,'name': position.location.name } %}
-    </h3> 
-    {% if (position.startDate is defined) and (position.endDate is defined) %}
+    
+    {# 
+    {% block widget_attributes %}
+      {{ dump(position.endDate) }}
+    {% endblock widget_attributes %}
+    #}
+    {% if position.startDate and position.endDate %}
       {% set startMonth = position.startDate.month %}
       {% set startYear = position.startDate.year %}
       {% set endMonth = position.endDate.month %}
       {% set endYear = position.endDate.year %}
       <p>{{ startMonth }}/{{ startYear }} - {{ endMonth }}/{{ endYear }}</p> 
-    {% elseif position.startDate is defined %} 
+    {% elseif position.startDate %} 
       {% set startMonth = position.startDate.month %}
       {% set startYear = position.startDate.year %}
       <p>{{ startMonth }}/{{ startYear }} - present</p>
-    {% elseif position.endDate is defined %}
+    {% elseif position.endDate %}
       {% set endMonth = position.endDate.month %}
       {% set endYear = position.endDate.year %}
       <p>{{ endMonth }}/{{ endYear }}</p> 
     {% endif %}             
     <p>{{ position.summary|nl2br }}</p>
 
+    {% if position.tags %}
+      TAGS: 
+      <ul class="tags">
+        {% for tag in position.tags %}
+        <li>
+          <span class="tag">
+            {{ tag.name }}
+          </span>
+        </li>
+        {% endfor %}
+      </ul>
+      
+    {% endif %} 
   </div>
 </div>

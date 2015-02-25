@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>About</source>
+                <target>Su di me</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Contact</source>
+                <target>Contatti</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Filter by</source>
+                <target>Filtra per</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Position</source>
+                <target>Posizione</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Country</source>
+                <target>Paese</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Web developer</source>
+                <target>Sviluppatore web</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Travel consultant</source>
+                <target>Consulente turistico</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Italy</source>
+                <target>Italia</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>United Kingdom</source>
+                <target>Regno Unito</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>France</source>
+                <target>Francia</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>Czech Republic</source>
+                <target>Repubblica Ceca</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Austria</source>
+                <target>Austria</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>Find me on Linkedin</source>
+                <target>Trovami su Linkedin</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>Contact form</source>
+                <target>Contact form</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>name</source>
+                <target>Nome</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>message</source>
+                <target>Messaggio</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>send</source>
+                <target>Invia</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>Type your message here</source>
+                <target>Inserisci qui il tuo messaggio</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
