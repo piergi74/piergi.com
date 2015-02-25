@@ -14,8 +14,9 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  *
  * @author PRG
  */
+
 /**
- * @MongoDB\Document
+ * @MongoDB\Document(repositoryClass="PRG\FrontendBundle\Document\UserRepository")
  */
 class User {
     /**
@@ -48,6 +49,8 @@ class User {
      */
     protected $pictureUrl;    
     
+    /** @MongoDB\EmbedMany(targetDocument="Position") */
+    private $positions;    
 
     /**
      * @MongoDB\Collection
@@ -57,17 +60,17 @@ class User {
      * @MongoDB\Collection
      */
     protected $languages;   
-    /**
-     * @MongoDB\Collection
-     */
-    protected $positions;   
+
     /**
      * @MongoDB\Collection
      */
     protected $skills;    
     
-    
-    
+   
+    public function getSlug()
+    {
+        return $this->slug;
+    }    
     /**
      * Get id
      *
@@ -276,4 +279,51 @@ class User {
     {
         return $this->skills;
     }
+    public function __construct()
+    {
+        $this->positions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Set linkedinId
+     *
+     * @param string $linkedinId
+     * @return self
+     */
+    public function setLinkedinId($linkedinId)
+    {
+        $this->linkedinId = $linkedinId;
+        return $this;
+    }
+
+    /**
+     * Get linkedinId
+     *
+     * @return string $linkedinId
+     */
+    public function getLinkedinId()
+    {
+        return $this->linkedinId;
+    }
+
+    /**
+     * Add position
+     *
+     * @param PRG\FrontendBundle\Document\Position $position
+     */
+    public function addPosition(\PRG\FrontendBundle\Document\Position $position)
+    {
+        $this->positions[] = $position;
+    }
+
+    /**
+     * Remove position
+     *
+     * @param PRG\FrontendBundle\Document\Position $position
+     */
+    public function removePosition(\PRG\FrontendBundle\Document\Position $position)
+    {
+        $this->positions->removeElement($position);
+    }
+
 }
