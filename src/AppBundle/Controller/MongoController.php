@@ -11,6 +11,47 @@ use AppBundle\Document\Article;
 class MongoController extends Controller
 {
   /**
+   * @Route("/mongo/show-translations", name="_show_mongo_translations")
+   */
+  public function showTranslationsAction()
+  {
+    $dm = $this->get('doctrine_mongodb')->getManager();
+    $repository = $dm->getRepository('AppBundle:Article'); 
+    
+    $article = $repository->findOneByCode('my code');
+
+    //$article = $dm->find('Entity\Article', 1 /*article id*/);
+    $repository = $dm->getRepository('Gedmo\Translatable\Document\Translation');
+    $translations = $repository->findTranslations($article);
+
+    dump($translations);die; //
+
+    // prints: the-title-my-code
+
+  }   
+  
+  /**
+   * @Route("/mongo/posts", name="_mongo_demo_posts")
+   */
+  public function postsAction()
+  {
+
+    $article = new Article();
+    $article->setTitle('the title');
+    $article->setCode('my code');
+    $article->setTranslatableLocale('it_it'); // change locale
+    
+    $dm = $this->get('doctrine_mongodb')->getManager();
+    $dm->persist($article);
+    $dm->flush();
+
+    dump($article->getSlug());die; //it works on mongo!
+    //echo $article->getSlug();
+    // prints: the-title-my-code
+
+  }    
+  
+  /**
    * @Route("/mongo/create", name="mongo_create")
    */  
   public function createAction()
