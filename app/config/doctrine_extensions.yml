@@ -26,6 +26,8 @@ services:
         class: Gedmo\Translatable\TranslatableListener
         tags:
             - { name: doctrine.event_subscriber, connection: default }
+            # ODM MongoDb subscriber, where **default** is manager name
+            - { name: doctrine_mongodb.odm.event_subscriber }                  
         calls:
             - [ setAnnotationReader, [ @annotation_reader ] ]
             - [ setDefaultLocale, [ %locale% ] ]
@@ -42,6 +44,8 @@ services:
         class: Gedmo\Sluggable\SluggableListener
         tags:
             - { name: doctrine.event_subscriber, connection: default }
+            # ODM MongoDb subscriber, where **default** is manager name
+            - { name: doctrine_mongodb.odm.event_subscriber }            
         calls:
             - [ setAnnotationReader, [ @annotation_reader ] ]
 
