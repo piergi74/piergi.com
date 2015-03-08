@@ -8,6 +8,10 @@
 
 namespace PRG\FrontendBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
+
+use PRG\FrontendBundle\Document\Position;
 
 /**
  * Description of User
@@ -18,7 +22,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\Document(repositoryClass="PRG\FrontendBundle\Document\UserRepository")
  */
-class User {
+class User implements Translatable {
     /**
      * @MongoDB\Id
      */
@@ -36,7 +40,9 @@ class User {
      * @MongoDB\String
      */
     protected $lastName;
+    
     /**
+     * @Gedmo\Translatable
      * @MongoDB\String
      */
     protected $industry;
@@ -65,6 +71,14 @@ class User {
      * @MongoDB\Collection
      */
     protected $skills;    
+    
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;    
+    
     
    
     public function getSlug()
@@ -326,4 +340,8 @@ class User {
         $this->positions->removeElement($position);
     }
 
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
+    }    
 }

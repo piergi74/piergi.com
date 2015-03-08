@@ -6,7 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Constraints\DateTime;
+//use Symfony\Component\Validator\Constraints\DateTime;
 use LinkedIn\LinkedIn;
 
 use PRG\FrontendBundle\Document\User;
@@ -15,14 +15,11 @@ use PRG\FrontendBundle\Document\Position;
 class HomeController extends Controller
 {
   /**
-   * @Route("/{_locale}", name="homepage", defaults={"_locale": "en"}, requirements={
+   * @Route("/mongo/{_locale}", name="mongo_homepage", defaults={"_locale": "en"}, requirements={
    *     "_locale": "en|it"
    * })
    */  
   public function homeAction(Request $request) {
-    
-    //$_locale = $request->getLocale();
-    
     $locale = $request->getLocale();
 
     //$request->setLocale($_locale);    
@@ -49,13 +46,13 @@ class HomeController extends Controller
      */
     
     $user = $dm
-        ->createQueryBuilder('FrontendBundle:User')
-        ->field('linkedinId')->equals($this->container->getParameter('linkedin.user_id'))
-        //->field('positions')->sort('title', 'ASC') // no
-        ->getQuery()
-        ->getSingleResult()
-        //->execute()
-      ;  
+      ->createQueryBuilder('FrontendBundle:User')
+      ->field('linkedinId')->equals($this->container->getParameter('linkedin.user_id'))
+      //->field('positions')->sort('title', 'ASC') // no
+      ->getQuery()
+      ->getSingleResult()
+      //->execute()
+    ;  
 
     //dump($user);
     
@@ -70,37 +67,9 @@ class HomeController extends Controller
         ->add('email', 'email')
         ->add('message', 'textarea', array('label' => $message))
         ->add('send', 'submit', array('label' => $send))
-        ->getForm();
-
+        ->getForm()
+    ;
     $form->handleRequest($request);
-
-    if ($form->isValid()) {
-        // data is an array with "name", "email", and "message" keys
-        $data = $form->getData();
-        dump($data);
-        
-        $mailer = $this->get('mailer');
-        $message = $mailer->createMessage()
-            ->setSubject('You have Completed Registration!')
-            ->setFrom('piergi@tiscali.it')
-            ->setTo($data['email'])
-            ->setBody($data['message'],
-                'text/html'
-            )
-            /*
-             * If you also want to include a plaintext version of the message
-            ->addPart(
-                $this->renderView(
-                    'Emails/registration.txt.twig',
-                    array('name' => $name)
-                ),
-                'text/plain'
-            )
-            */
-        ;
-        $mailer->send($message);        
-
-    }
     
     return $this->render('FrontendBundle:Templates:home.html.twig', array(
           'locale' => $locale,
@@ -109,11 +78,44 @@ class HomeController extends Controller
         ));    
   }
   
+  public function processForm($form) {
+    if ($form->isValid()) {
+      // data is an array with "name", "email", and "message" keys
+      $data = $form->getData();
+      dump($data);
+
+      $mailer = $this->get('mailer');
+      $message = $mailer->createMessage()
+          ->setSubject('You have Completed Registration!')
+          ->setFrom('piergi@tiscali.it')
+          ->setTo($data['email'])
+          ->setBody($data['message'],
+              'text/html'
+          )
+          /*
+           * If you also want to include a plaintext version of the message
+          ->addPart(
+              $this->renderView(
+                  'Emails/registration.txt.twig',
+                  array('name' => $name)
+              ),
+              'text/plain'
+          )
+          */
+      ;
+      $mailer->send($message);        
+    }    
+  }
+  
   /**
-   * @Route("/update/", name="update_page"  )
+   * @Route("/mongo/{_locale}/update", name="mongo_update_page", defaults={"_locale": "en"}, requirements={
+   *     "_locale": "en|it"
+   * })
    */
   public function updateAction(Request $request)
   {
+    $locale = $request->getLocale();
+    //dump($locale);die;
     $session = $request->getSession();
     $linkedinTokens = $session->get('linkedin_tokens');
     //$sessionAccessToken = $linkedinTokens['access_token'];
@@ -214,7 +216,7 @@ class HomeController extends Controller
     //$info = $li->get('/people/id=kZZE2X_xU3');
     //$info = json_encode($info);
     //dump($info);die;
-    
+    /*
     $id = json_encode($info['id']);
     $firstName = $info['firstName'];
     $lastName = $info['lastName'];
@@ -225,7 +227,7 @@ class HomeController extends Controller
     $languages = json_encode($info['languages']);
     $positions = json_encode($info['positions']);
     $skills = json_encode($info['skills']);
-    
+    */
     //dump($info['educations']['values']);die;
     
     $dm = $this->get('doctrine_mongodb')->getManager();
@@ -255,8 +257,8 @@ class HomeController extends Controller
     */
     //dump($info['educations']['_total']);die;
     //dump($info['lastModifiedTimestamp']);die;
-    $updatedInLinkedin = new \DateTime(date('m/d/Y', (string)$user->getLastModifiedTimestamp()));
-    $updatedInMongo = new \DateTime(date('m/d/Y', substr($lastModifiedTimestamp, 0, -3)));
+    //$updatedInLinkedin = new \DateTime(date('m/d/Y', $user->getLastModifiedTimestamp()));
+    //$updatedInMongo = new \DateTime(date('m/d/Y', substr($lastModifiedTimestamp, 0, -3)));
     //dump($info['positions']['values'][0]['id']);die;
     
 
@@ -265,7 +267,7 @@ class HomeController extends Controller
       //if($updatedInLinkedin < $updatedInMongo) {
       if(3 < 4) {
 
-        $this->updateUser($info);
+        $this->updateMongoUser($info, $locale);
 
         $uri = $uri = $this->get('router')->generate('homepage');
         return $this->redirect($uri);
@@ -284,52 +286,8 @@ class HomeController extends Controller
     //return $this->render('FrontendBundle:Templates:home.html.twig', array('firstName' => $firstName));
     //return new Response($firstName);
   }
-  
-  public function updateUserOLD($info) 
-  {
-    $dm = $this->get('doctrine_mongodb')->getManager();
-    $repository = $dm->getRepository('FrontendBundle:User');
-    
-    $qb = $dm->createQueryBuilder('FrontendBundle:User');
-    $user = $qb
-      ->update()
-      //->multiple(true)
-      //->addToSet('positions')
-      //->addOr($qb->expr()->field('positions')->equals(false))
-      ->field('firstName')->set($info['firstName'])
-      ->field('lastName')->set($info['lastName'])
-      ->field('industry')->set($info['industry'])
-      ->field('lastModifiedTimestamp')->set(time())
-      ->field('pictureUrl')->set($info['pictureUrl'])
-      ->field('linkedinId')->equals($this->container->getParameter('linkedin.user_id'))
-      ->field('positions')->exists(false)->set(array())  
-      ->field('educations')->exists(false)->set($info['educations']['values'])
-    ;
-    $qb->getQuery()->execute();  
-    //->getSingleResult();
-    //dump($user);die;
 
-    //Query::debug();           
-
-    foreach($info['positions']['values'] as $position) {
-
-      $qb1 = $dm->createQueryBuilder('FrontendBundle:User');
-      $existingPosition = $qb1
-        ->field('positions.linkedinId')->equals($position['id'])
-        ->getQuery()->getSingleResult()
-      ;    
-
-      if($existingPosition) {
-        $repository->updatePosition($position);
-      } else {            
-        $user->addPosition(new Position($position));
-        $dm->persist($user);
-        $dm->flush();
-      }
-    }             
-  }
-
-  public function updateUser($info)
+  public function updateMongoUser($info, $locale)
   {
     $dm = $this->get('doctrine_mongodb')->getManager();
     $repository = $dm->getRepository('FrontendBundle:User');
@@ -353,7 +311,7 @@ class HomeController extends Controller
     if($info['positions']['_total'] > 0){
       foreach($info['positions']['values'] as $position) {
 
-        $existingPosition = $dm->createQueryBuilder('FrontendBundle:User')
+        $existingPosition = $dm->createQueryBuilder('FrontendBundle:User') //this is a position
           ->field('positions.linkedinId')->equals($position['id'])
           ->getQuery()->getSingleResult()
         ;            
@@ -371,13 +329,13 @@ class HomeController extends Controller
       $user->setSkills($info['skills']['values']);
     }
 
-
+    $user->setTranslatableLocale($locale); // change locale
     $dm->persist($user);
     $dm->flush();      
   }
   
   /**
-   * @Route("/updateOLD", name="update_mongodb")
+   * @Route("/mongo/updateOLD", name="update_mongodb")
    */    
   public function updateFromLinkedinActionOLD($info)
   {
@@ -413,7 +371,7 @@ class HomeController extends Controller
   }
   
   /**
-   * @Route("/posts", name="_demo_posts")
+   * @Route("/mongo/posts", name="_demo_posts")
    */
   public function postsAction()
   {

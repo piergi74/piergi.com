@@ -5,24 +5,47 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Document\Product;
 use AppBundle\Document\Article;
 
 class MongoController extends Controller
 {
   /**
-   * @Route("/mongo/show-translations", name="_show_mongo_translations")
+   * @Route("/{_locale}/mongo/show-post", name="_mongo_show_post", defaults={"_locale": "en"}, requirements={
+   *     "_locale": "en|it"
+   * })
    */
-  public function showTranslationsAction()
+  public function showPostAction(Request $request)
   {
     $dm = $this->get('doctrine_mongodb')->getManager();
     $repository = $dm->getRepository('AppBundle:Article'); 
     
-    $article = $repository->findOneByCode('my code');
+    $article = $repository->find(array('id' => '54ef052eebba23c415000029'));
+    
+    dump($article->getTitle());
+
+    dump($request->getLocale());die; //
+
+    
+
+  }      
+  
+  /**
+   * @Route("/mongo/show-translations", name="_show_mongo_translations")
+   */
+  public function showTranslationsAction(Request $request)
+  {
+    $dm = $this->get('doctrine_mongodb')->getManager();
+    $repository = $dm->getRepository('AppBundle:Article'); 
+    
+    $article = $repository->findOneByCode('my english code');
 
     //$article = $dm->find('Entity\Article', 1 /*article id*/);
     $repository = $dm->getRepository('Gedmo\Translatable\Document\Translation');
     $translations = $repository->findTranslations($article);
+
+    dump($request->getLocale());
 
     dump($translations);die; //
 
@@ -37,9 +60,9 @@ class MongoController extends Controller
   {
 
     $article = new Article();
-    $article->setTitle('the title');
-    $article->setCode('my code');
-    $article->setTranslatableLocale('it_it'); // change locale
+    $article->setTitle('the english title');
+    $article->setCode('my english code');
+    $article->setTranslatableLocale('en_en'); // change locale
     
     $dm = $this->get('doctrine_mongodb')->getManager();
     $dm->persist($article);

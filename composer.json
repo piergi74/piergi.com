@@ -21,7 +21,10 @@
         "doctrine/mongodb-odm": "1.0.*@dev",
         "doctrine/mongodb-odm-bundle": "3.0.*@dev",
         "linkedinapi/linkedin": "dev-master",
-        "gedmo/doctrine-extensions": "dev-master"
+        "gedmo/doctrine-extensions": "dev-master",
+        "sonata-project/admin-bundle": "~2.4@dev",
+        "sonata-project/doctrine-orm-admin-bundle": "~2.4@dev",
+        "sonata-project/translation-bundle": "~2.3@dev"
     },
     "minimum-stability": "dev",
     "require-dev": {

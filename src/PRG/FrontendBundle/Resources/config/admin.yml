@@ -1,0 +1,63 @@
+services:
+  sonata.admin.user:
+    class: PRG\FrontendBundle\Admin\UserAdmin
+    tags:
+        - { name: sonata.admin, manager_type: orm, group: "Entities", label: "User" }
+    arguments:
+        - ~
+        - PRG\FrontendBundle\Entity\User
+        - ~
+    calls:
+        - [ setTranslationDomain, [PRGFrontendBundle]]
+        - [ setTemplate, [edit, FrontendBundle::edit.html.twig]]
+  sonata.admin.position:
+    class: PRG\FrontendBundle\Admin\PositionAdmin
+    tags:
+        - { name: sonata.admin, manager_type: orm, group: "Entities", label: "Position" }
+    arguments:
+        - ~
+        - PRG\FrontendBundle\Entity\Position
+        - ~
+    calls:
+        - [ setTranslationDomain, [PRGFrontendBundle]]
+  sonata.admin.skill:
+    class: PRG\FrontendBundle\Admin\SkillAdmin
+    tags:
+        - { name: sonata.admin, manager_type: orm, group: "Entities", label: "Skill" }
+    arguments:
+        - ~
+        - PRG\FrontendBundle\Entity\Skill
+        - ~
+    calls:
+        - [ setTranslationDomain, [PRGFrontendBundle]]
+  sonata.admin.location:
+    class: PRG\FrontendBundle\Admin\LocationAdmin
+    tags:
+        - { name: sonata.admin, manager_type: orm, group: "Entities", label: "Location" }
+    arguments:
+        - ~
+        - PRG\FrontendBundle\Entity\Location
+        - ~
+    calls:
+        - [ setTranslationDomain, [PRGFrontendBundle]]
+  sonata.admin.country:
+    class: PRG\FrontendBundle\Admin\CountryAdmin
+    tags:
+        - { name: sonata.admin, manager_type: orm, group: "Entities", label: "Country" }
+    arguments:
+        - ~
+        - PRG\FrontendBundle\Entity\Country
+        - ~
+    calls:
+        - [ setTranslationDomain, [PRGFrontendBundle]]
+  sonata.admin.education:
+    class: PRG\FrontendBundle\Admin\EducationAdmin
+    tags:
+        - { name: sonata.admin, manager_type: orm, group: "Entities", label: "Education" }
+    arguments:
+        - ~
+        - PRG\FrontendBundle\Entity\Education
+        - ~
+    calls:
+        - [ setTranslationDomain, [PRGFrontendBundle]]
+     

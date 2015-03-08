@@ -74,6 +74,58 @@
                 <source>Type your message here</source>
                 <target>Inserisci qui il tuo messaggio</target>
             </trans-unit>
+            <trans-unit id="19">
+                <source>January</source>
+                <target>Gennaio</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>February</source>
+                <target>Febbraio</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>March</source>
+                <target>Marzo</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>April</source>
+                <target>Aprile</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>May</source>
+                <target>Maggio</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>June</source>
+                <target>Giugno</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>July</source>
+                <target>Luglio</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>August</source>
+                <target>Agosto</target>
+            </trans-unit>
+            <trans-unit id="27">
+                <source>September</source>
+                <target>Settembre</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source>October</source>
+                <target>Ottobre</target>
+            </trans-unit>
+            <trans-unit id="29">
+                <source>November</source>
+                <target>Novembre</target>
+            </trans-unit>
+            <trans-unit id="30">
+                <source>December</source>
+                <target>Dicembre</target>
+            </trans-unit>
+            <trans-unit id="31">
+                <source>presente</source>
+                <target>oggi</target>
+            </trans-unit>            
         </body>
     </file>
 </xliff>

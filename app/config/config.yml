@@ -2,7 +2,9 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
-    - { resource: doctrine_extensions.yml }    
+    - { resource: doctrine_extensions.yml }  
+    - { resource: @FrontendBundle/Resources/config/admin.yml }  
+    - { resource: @FrontendBundle/Resources/config/sonata_translation.yml }
 
 framework:
     #esi:             ~
@@ -35,7 +37,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
+    bundles:        [ FrontendBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -47,31 +49,58 @@ assetic:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   "%database_driver%"
-        host:     "%database_host%"
-        port:     "%database_port%"
-        dbname:   "%database_name%"
-        user:     "%database_user%"
-        password: "%database_password%"
-        charset:  UTF8
-        # if using pdo_sqlite as your database driver:
-        #   1. add the path in parameters.yml
-        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
-        #   2. Uncomment database_path in parameters.yml.dist
-        #   3. Uncomment next line:
-        #     path:     "%database_path%"
+      default_connection: default
+      connections:
+        default:        
+          driver:   "%database_driver%"
+          host:     "%database_host%"
+          port:     "%database_port%"
+          dbname:   "%database_name%"
+          user:     "%database_user%"
+          password: "%database_password%"
+          charset:  UTF8
+          # if using pdo_sqlite as your database driver:
+          #   1. add the path in parameters.yml
+          #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
+          #   2. Uncomment database_path in parameters.yml.dist
+          #   3. Uncomment next line:
+          #     path:     "%database_path%"
+        test:
+          driver:   "%database_driver%"
+          host:     "%database_host%"
+          port:     "%database_port%"
+          dbname:   symfony
+          user:     "%database_user%"
+          password: "%database_password%"
+          charset:  UTF8          
 
     orm:
-        auto_generate_proxy_classes: "%kernel.debug%"
-        auto_mapping: true
-        mappings:
-            translatable:
-                type: annotation
-                alias: Gedmo
-                prefix: Gedmo\Translatable\Entity
-                # make sure vendor library location is correct
-                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity/MappedSuperclass"
-                
+        default_entity_manager: default
+        entity_managers:
+          default:       
+            connection: default
+            auto_mapping: true
+            mappings:
+                FrontendBundle: ~
+                translatable:
+                    type: annotation
+                    alias: Gedmo
+                    prefix: Gedmo\Translatable\Entity
+                    # make sure vendor library location is correct
+                    #dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity/MappedSuperclass"
+                    dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+          test:       
+            connection: test
+            mappings:
+                AppBundle: ~
+                translatable:
+                    type: annotation
+                    alias: Gedmo
+                    prefix: Gedmo\Translatable\Entity
+                    # make sure vendor library location is correct
+                    #dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity/MappedSuperclass"
+                    dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
@@ -111,3 +140,10 @@ doctrine_mongodb:
                     prefix: Gedmo\Tree\Document
                     dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Document"  
                 
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # Enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+        # Your other blocks                

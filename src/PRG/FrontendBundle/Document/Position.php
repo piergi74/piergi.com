@@ -63,7 +63,21 @@ class Position
         $this->company = new Company($values['company']);
       }
       if(isset($values['location'])) {
-        $this->location = new Location($values['location']);
+        $values['location']['linkedinId'] = $values['id'];
+        /*
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $repository = $dm->getRepository('FrontendBundle:User');    
+        
+        $locationObj = new Location($values['location']);
+        $locationObj->setName($values['location']['name']);
+        $locationObj->setTranslatableLocale('it');
+        $dm->persist($locationObj);
+        $dm->flush();    
+         * 
+         */
+        //dump($values['location']);die;
+        
+        $this->location = new \PRG\FrontendBundle\Document\Location($values['location']);
       }
       if(isset($values['startDate'])) {
         $this->startDate = new Date($values['startDate']);

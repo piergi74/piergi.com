@@ -3,11 +3,12 @@ namespace AppBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * @ODM\Document(collection="articles")
  */
-class Article
+class Article implements Translatable
 {
     /**
      * @ODM\Id
@@ -15,6 +16,7 @@ class Article
     private $id;
 
     /**
+     * @Gedmo\Translatable
      * @ODM\String
      */
     private $title;
@@ -24,6 +26,13 @@ class Article
      */
     private $code;
 
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
+    
     /**
      * @Gedmo\Slug(fields={"title", "code"})
      * @ODM\String
@@ -70,5 +79,10 @@ class Article
         $this->slug = $slug;
 
         return $this;
+    }    
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }    
 }

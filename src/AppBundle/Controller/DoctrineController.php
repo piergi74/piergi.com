@@ -17,8 +17,9 @@ class DoctrineController extends Controller
   {
     $product = new Product();
     $product->setName($name);
-
-    $em = $this->getDoctrine()->getManager();
+    $product->setTranslatableLocale('it'); // change locale
+    
+    $em = $this->getDoctrine()->getManager('test');
     $em->persist($product);
     $em->flush();
 

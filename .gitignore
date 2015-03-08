@@ -2,3 +2,5 @@
 /app/cache/
 /web/bundles/
 /nbproject/
+/src/PRG/FrontendBundle/Resources/views/Templates/Partials/old/
+/src/PRG/FrontendBundle/Resources/views/Templates/old/

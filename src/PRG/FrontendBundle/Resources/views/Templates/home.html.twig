@@ -30,36 +30,7 @@
   {% for education in user.educations %}
     {% include 'FrontendBundle:Templates/Partials:education.html.twig' with {'education': education } %}
   {% endfor %}
-
-  {% if 3 > 4 %}
-  <div class="container content-box">
-    <!-- Main component for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <h1>Web Developer</h1>
-      <h2>Freelance</h2>
-      <h3>
-        {% include 'FrontendBundle:Templates/Partials/locations:uk.html.twig' with {'country':'EU','name':'Europe'} %}
-      </h3>
-      <p>Developing websites and web-based applications using PHP Symfony framework and JQuery. XML web services integration to acquire and display real time data via AJAX.</p>
-      <p>Facebook Integration via Facebook Connect and application development to post automatically to Facebook Pages or Twitter profiles.</p>
-      <p>Optimizing the websites to improve the volume and quality of traffic from search engines (SEO). This includes: refactoring the HTML code, setting specific meta tags for every single page, combining and merging CSS and external JS scripts, url rewriting.</p>
-      <br/>
-      <img src="{{ asset('http://symfony.com/logos/symfony_black_01.png?v=4', absolute=true) }}" alt="Symfony!" height="10%" width="10%" />
-      <img src="{{ asset('http://php.net//images/logos/php-med-trans-light.gif', absolute=true) }}" alt="Php" />
-      <img src="{{ asset('http://www.mysql.com/common/logos/logo-mysql-170x115.png', absolute=true) }}" alt="MySql" height="10%" width="10%" />
-      <img src="{{ asset('http://upload.wikimedia.org/wikipedia/en/7/79/Doctrine_logo_white.png', absolute=true) }}" alt="Doctrine" height="10%" width="10%" />
-      <img src="{{ asset('http://www.mongodb.com/sites/mongodb.com/files/media/mongodb-logo-rgb.jpeg', absolute=true) }}" alt="MongoDB" height="10%" width="10%" />
-      <img src="{{ asset('http://www.w3.org/html/logo/badge/html5-badge-h-solo.png', absolute=true) }}" alt="Html" />
-      <img src="{{ asset('http://upload.wikimedia.org/wikipedia/en/thumb/9/9e/JQuery_logo.svg/524px-JQuery_logo.svg.png', absolute=true) }}" alt="JQuery" height="10%" width="10%" />
-      <img src="{{ asset('http://upload.wikimedia.org/wikipedia/commons/3/32/Facebooklogo.png', absolute=true) }}" alt="Facebook" height="10%" width="10%" />
-      <img src="{{ asset('http://upload.wikimedia.org/wikipedia/commons/5/51/Logo_twitter_wordmark_1000.png', absolute=true) }}" alt="Twitter" height="10%" width="10%" />   
-    </div>
-    <div id="ribbon-container">
-      <a href="http://www.piergi.com" id="ribbon" target="_blank">Hire me!</a>
-    </div> 
-  </div> <!-- /container -->      
-  {% endif %}
-  
+ 
   <div class="container content-box">
     <div class="jumbotron wb row">
 
@@ -70,7 +41,7 @@
     </div>
   </div> <!-- /container -->  
 
-  <p class="acenter">&copy; 2005 - P.IVA n. 03555800923</p>
+  <p class="acenter">&copy; {{ 'now'|date('Y') }} - P.IVA n. 03555800923</p>
     
 {% endblock %}
 

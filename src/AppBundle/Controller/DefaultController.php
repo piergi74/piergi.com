@@ -9,7 +9,7 @@ use AppBundle\Entity\Article;
 class DefaultController extends Controller
 {
   /**
-   * @Route("/app/example", name="homepage")
+   * @Route("/app/example", name="old_homepage")
    */
   public function indexAction()
   {

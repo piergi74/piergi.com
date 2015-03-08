@@ -4,9 +4,15 @@
   {% set code = 'EU' %}
 {% endif %}
 
-<div class="positions container {{code}}">
-  <!-- Main component for a primary marketing message or call to action -->
-  <div class="jumbotron">
+{% if position.isCurrent %}
+  {% set class = 'small' %}
+{% else %}
+  {% set class = '' %}
+{% endif %}
+
+<div id="{{ position.linkedinId }}" class="positions container {{code}}">
+  <div class="jumbotron {{class}}">
+    
     <h1>{{ position.title }}</h1>
     {% if position.company.name %}
       <h2>{{ position.company.name }}</h2>
@@ -24,23 +30,40 @@
     {% endblock widget_attributes %}
     #}
     {% if position.startDate and position.endDate %}
-      {% set startMonth = position.startDate.month %}
-      {% set startYear = position.startDate.year %}
-      {% set endMonth = position.endDate.month %}
-      {% set endYear = position.endDate.year %}
-      <p>{{ startMonth }}/{{ startYear }} - {{ endMonth }}/{{ endYear }}</p> 
+      {% if position.startDate.month is defined %}
+        {% set startMonth = position.startDate.month %}
+        {% set startYear = position.startDate.year %}
+        {% set endMonth = position.endDate.month %}
+        {% set endYear = position.endDate.year %}
+        <p>{{ startMonth }}/{{ startYear }} - {{ endMonth }}/{{ endYear }}</p> 
+      {% else %}
+        {% set startMonth = position.startDate|date('F') %}
+        {% set endMonth = position.endDate|date('F') %}
+        <p>{{ startMonth|trans }} {{ position.startDate|date('Y') }} - {{ endMonth|trans }} {{ position.endDate|date('Y') }}</p>
+      {% endif %}       
     {% elseif position.startDate %} 
-      {% set startMonth = position.startDate.month %}
-      {% set startYear = position.startDate.year %}
-      <p>{{ startMonth }}/{{ startYear }} - present</p>
+      {% if position.startDate.month is defined %}
+        {% set startMonth = position.startDate.month %}
+        {% set startYear = position.startDate.year %}
+        <p>{{ startMonth }}/{{ startYear }} - present</p>
+      {% else %}
+        {% set startMonth = position.startDate|date('F') %}
+        <p>{{ startMonth|trans }} {{ position.startDate|date('Y') }} - {% trans %}present{% endtrans %}</p>
+      {% endif %} 
     {% elseif position.endDate %}
-      {% set endMonth = position.endDate.month %}
-      {% set endYear = position.endDate.year %}
-      <p>{{ endMonth }}/{{ endYear }}</p> 
+      {% if position.endDate.month %}
+        {% set endMonth = position.endDate.month %}
+        {% set endYear = position.endDate.year %}
+        <p>{{ endMonth }}/{{ endYear }}</p> 
+      {% else %}
+        {% set endMonth = position.endDate|date('F') %}
+        <p>{{ endMonth|trans }} {{ position.endDate|date('Y') }} - {% trans %}present{% endtrans %}</p>
+      {% endif %}       
     {% endif %}             
     <p>{{ position.summary|nl2br }}</p>
 
-    {% if position.tags %}
+    {% if position.tags is defined %}
+      
       TAGS: 
       <ul class="tags">
         {% for tag in position.tags %}
@@ -53,5 +76,20 @@
       </ul>
       
     {% endif %} 
+    
+    {% if position.skills is defined %}
+      
+      <ul class="tags">
+        {% for skill in position.skills %}
+        <li>
+          <span class="tag">
+            {{ skill.name }}
+          </span>
+        </li>
+        {% endfor %}
+      </ul>
+      
+    {% endif %}   
+    
   </div>
 </div>

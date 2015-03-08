@@ -7,15 +7,27 @@
       <h3>{{ education.fieldOfStudy }}</h3> 
     {% endif %}          
     {% if (education.startDate is defined) and (education.endDate is defined) %}
-      {% set startDate = education.startDate.year %}
-      {% set endDate = education.endDate.year %}
-      <p>{{ startDate }} - {{ endDate }}</p> 
+      {% if (education.startDate.year is defined) %}
+        {% set startDate = education.startDate.year %}
+        {% set endDate = education.endDate.year %}
+        <p>{{ startDate }} - {{ endDate }}</p> 
+      {% else %}
+        <p>{{ education.startDate|date('Y') }} - {{ education.endDate|date('Y') }}</p>
+      {% endif %}           
     {% elseif education.startDate is defined %} 
-      {% set startDate = education.startDate.year %}
-      <p>{{ startDate }}</p>
+      {% if (education.startDate.year is defined) %}
+        {% set startDate = education.startDate.year %}
+        <p>{{ startDate }}</p>
+      {% else %}
+        <p>{{ startDate|date('Y') }}</p>
+      {% endif %}          
     {% elseif education.endDate is defined %}
-      {% set endDate = education.endDate.year %}
-      <p>{{ endDate }}</p> 
+      {% if (education.endDate.year is defined) %}
+        {% set endDate = education.endDate.year %}
+        <p>{{ endDate }}</p> 
+      {% else %}
+        <p>{{ endDate|date('Y') }}</p>
+      {% endif %}          
     {% endif %}            
   </div>
 </div>

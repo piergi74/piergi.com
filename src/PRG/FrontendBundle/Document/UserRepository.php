@@ -8,7 +8,7 @@
 
 namespace PRG\FrontendBundle\Document;
 use Doctrine\ODM\MongoDB\DocumentRepository;
-use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+//use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  * RegisterRepository
@@ -17,6 +17,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  */
 class UserRepository extends DocumentRepository
 {
+ 
   public function updatePosition($position)
   {
     $qb = $this->createQueryBuilder();
@@ -25,7 +26,9 @@ class UserRepository extends DocumentRepository
       ->field('positions.$.isCurrent')->set($position['isCurrent'])
       ->field('positions.$.title')->set($position['title'])
       ->field('positions.$.summary')->set($position['summary'])
-      ->field('positions.$.location')->set($position['location'])
+      //->field('positions.$.location')->set($position['location'])
+      ->field('positions.$.location.name')->set($position['location']['name']) //si
+      //->field('positions.$.location.locale')->set('it') //it works, but useless
       ->field('positions.$.company')->set($position['company'])  
       ->field('positions.$.startDate')->set($position['startDate']);
       if(isset($position['endDate'])) {
@@ -33,6 +36,7 @@ class UserRepository extends DocumentRepository
         $qb->field('positions.$.endDate')->set($position['endDate']);
       }
       $qb->getQuery()->execute()
+
     ;  
     
     //dump($query);die; 
