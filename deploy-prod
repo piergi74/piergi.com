@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rsync -rtuvz ../piergi.com.git/ rsyncadmin@localhost:/var/www/vhosts/piergi.com/httpdocs/ --exclude=path_to_exclude --go --delete --dry-run
+
 
 svn up ../;php symfony fondosalario:deploy-website ../trunk/ localhost -mfondosalario_preprod -ursyncadmin -econfig/rsync_exclude_preprod.txt --go --delete
 
