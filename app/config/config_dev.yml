@@ -1,6 +1,5 @@
 imports:
     - { resource: config.yml }
-    - { resource: @FrontendBundle/Resources/config/sonata_translation.yml }    
 
 framework:
     router:
@@ -47,11 +46,3 @@ assetic:
 
 #swiftmailer:
 #    delivery_address: me@example.com
-
-sonata_block:
-    default_contexts: [cms]
-    blocks:
-        # Enable the SonataAdminBundle block
-        sonata.admin.block.admin_list:
-            contexts:   [admin]
-        # Your other blocks    

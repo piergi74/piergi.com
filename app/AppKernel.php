@@ -20,21 +20,23 @@ class AppKernel extends Kernel
             new PRG\FrontendBundle\FrontendBundle(),
             new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
 
+            // Add your dependencies
+            new Sonata\CoreBundle\SonataCoreBundle(),
+            new Sonata\BlockBundle\SonataBlockBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            //...
+
+            // If you haven't already, add the storage bundle
+            // This example uses SonataDoctrineORMAdmin but
+            // it works the same with the alternatives
+            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
+
+            // Then add SonataAdminBundle
+            new Sonata\AdminBundle\SonataAdminBundle(),  
+            new Sonata\TranslationBundle\SonataTranslationBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-          
-            $bundles[] = new Sonata\CoreBundle\SonataCoreBundle();
-            $bundles[] = new Sonata\BlockBundle\SonataBlockBundle();
-            $bundles[] = new Knp\Bundle\MenuBundle\KnpMenuBundle();
-            // If you haven't already, add the storage bundle
-            // This example uses SonataDoctrineORMAdmin but
-            // it works the same with the alternatives            
-            $bundles[] = new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle();
-            // Then add SonataAdminBundle
-            $bundles[] = new Sonata\AdminBundle\SonataAdminBundle();
-            $bundles[] = new Sonata\TranslationBundle\SonataTranslationBundle();
-
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Acme\DemoBundle\AcmeDemoBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
