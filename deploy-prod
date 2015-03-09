@@ -1,7 +1,7 @@
 #!/bin/bash
 
 git pull origin master;
-php symfony prg:deploy-website ../piergi.com.git/ localhost -mpiergi_production -ursyncadmin -econfig/rsync_exclude.txt --go --delete
+php app/console prg:deploy-website ../piergi.com.git/ localhost -mpiergi_production -ursyncadmin -econfig/rsync_exclude.txt --go --delete
 
 DIR_LOG=/var/www/vhosts/piergi.com/httpdocs/
 cd $DIR_LOG
