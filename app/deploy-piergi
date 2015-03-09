@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+<?php
+
+//require_once __DIR__.'/bootstrap.php.cache';
+//require_once __DIR__.'/AppKernel.php';
+
+require __DIR__.'/../vendor/autoload.php';
+
+use PRG\FrontendBundle\Command\DeployWebsiteCommand;
+use Symfony\Component\Console\Application;
+
+$application = new Application();
+$application->add(new DeployWebsiteCommand());
+$application->run();
