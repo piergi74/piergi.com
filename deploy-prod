@@ -6,4 +6,5 @@ php symfony prg:deploy-website ../piergi.com.git/ localhost -mpiergi_production 
 DIR_LOG=/var/www/vhosts/piergi.com/httpdocs/
 cd $DIR_LOG
 
+
 php app/console cache:clear
