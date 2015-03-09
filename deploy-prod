@@ -1,10 +1,18 @@
 #!/bin/bash
 
+<<<<<<< HEAD
 
+=======
+git pull origin master;
+php symfony prg:deploy-website ../piergi.com.git/ localhost -mpiergi_production -ursyncadmin -econfig/rsync_exclude.txt --go --delete
+>>>>>>> e18f4aad7edf52ea1969387c082c1033533f0223
 
-svn up ../;php symfony fondosalario:deploy-website ../trunk/ localhost -mfondosalario_preprod -ursyncadmin -econfig/rsync_exclude_preprod.txt --go --delete
-
-DIR_LOG=/var/www/vhosts/fondosalario.piergi.com/httpdocs/
+DIR_LOG=/var/www/vhosts/piergi.com/httpdocs/
 cd $DIR_LOG
 
+<<<<<<< HEAD
 php symfony cc
+=======
+
+php app/console cache:clear
+>>>>>>> e18f4aad7edf52ea1969387c082c1033533f0223
