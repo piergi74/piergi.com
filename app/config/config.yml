@@ -140,10 +140,4 @@ doctrine_mongodb:
                     prefix: Gedmo\Tree\Document
                     dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Document"  
                 
-sonata_block:
-    default_contexts: [cms]
-    blocks:
-        # Enable the SonataAdminBundle block
-        sonata.admin.block.admin_list:
-            contexts:   [admin]
-        # Your other blocks                
+            
