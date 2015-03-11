@@ -4,6 +4,7 @@
 /web/*_dev.php
 /web/uploads/*
 deploy-prod
+/vendor
 .gitignore
 
 
