@@ -113,32 +113,32 @@ swiftmailer:
 
 
 # MongoDB // added by Piergi on 20150201
-doctrine_mongodb:
-    connections:
-        default:
-            server: mongodb://localhost:27017
-            options: {}
-    default_database: test_database
-    document_managers:
-        default:
-            auto_mapping: true
-            mappings:
-                translatable:
-                    type: annotation
-                    alias: GedmoDocument
-                    prefix: Gedmo\Translatable\Document
-                    # make sure vendor library location is correct
-                    dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Document/MappedSuperclass" 
-                loggable:
-                    type: annotation
-                    alias: Gedmo
-                    prefix: Gedmo\Loggable\Document
-                    dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Document"
-                tree:
-                    type: annotation
-                    alias: Gedmo
-                    prefix: Gedmo\Tree\Document
-                    dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Document"  
+#doctrine_mongodb:
+#    connections:
+#        default:
+#            server: mongodb://localhost:27017
+#            options: {}
+#    default_database: test_database
+#    document_managers:
+#        default:
+#            auto_mapping: true
+#            mappings:
+#                translatable:
+#                    type: annotation
+#                    alias: GedmoDocument
+#                    prefix: Gedmo\Translatable\Document
+#                    # make sure vendor library location is correct
+#                    dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Document/MappedSuperclass" 
+#                loggable:
+#                    type: annotation
+#                    alias: Gedmo
+#                    prefix: Gedmo\Loggable\Document
+#                    dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Document"
+#                tree:
+#                    type: annotation
+#                    alias: Gedmo
+#                    prefix: Gedmo\Tree\Document
+#                    dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Document"  
                 
 sonata_block:
     default_contexts: [cms]
