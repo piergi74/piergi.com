@@ -46,3 +46,12 @@ assetic:
 
 #swiftmailer:
 #    delivery_address: me@example.com
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+      connections:
+        default:        
+          dbname:   "%database_name%"
+          user:     "%database_user%"
+          password: "%database_password%"
