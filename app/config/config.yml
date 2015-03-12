@@ -65,15 +65,6 @@ doctrine:
           #   2. Uncomment database_path in parameters.yml.dist
           #   3. Uncomment next line:
           #     path:     "%database_path%"
-        test:
-          driver:   "%database_driver%"
-          host:     "%database_host%"
-          port:     "%database_port%"
-          dbname:   "%database_name%"
-          user:     "%database_user%"
-          password: "%database_password%"
-          charset:  UTF8          
-
     orm:
         default_entity_manager: default
         entity_managers:
@@ -82,17 +73,6 @@ doctrine:
             auto_mapping: true
             mappings:
                 FrontendBundle: ~
-                translatable:
-                    type: annotation
-                    alias: Gedmo
-                    prefix: Gedmo\Translatable\Entity
-                    # make sure vendor library location is correct
-                    #dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity/MappedSuperclass"
-                    dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
-          test:       
-            connection: test
-            mappings:
-                AppBundle: ~
                 translatable:
                     type: annotation
                     alias: Gedmo
