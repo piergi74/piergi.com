@@ -1,10 +1,12 @@
 # Project files
-/cache/*
-/log/*
+/app/cache/*
+/app/logs/*
 /web/*_dev.php
 /web/uploads/*
 deploy-prod
-/vendor
+/vendor/*
+/web/bundles/
+/nbproject/
 .gitignore
 
 
