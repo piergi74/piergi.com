@@ -71,7 +71,7 @@ class DoctrineController extends Controller
     if ($form->isValid()) {
       // data is an array with "name", "email", and "message" keys
       $data = $form->getData();
-      dump($data);
+      //dump($data);
 
       $mailer = $this->get('mailer');
       $message = $mailer->createMessage()
