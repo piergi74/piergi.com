@@ -58,6 +58,7 @@ class DoctrineController extends Controller
         ->getForm()
     ;
     $form->handleRequest($request);
+    $this->processForm($form);
     
     return $this->render('FrontendBundle:Templates:home.html.twig', array(
           'locale' => $locale,
