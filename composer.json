@@ -23,6 +23,7 @@
         "gedmo/doctrine-extensions": "dev-master",
         "sonata-project/admin-bundle": "~2.4@dev",
         "sonata-project/doctrine-orm-admin-bundle": "~2.4@dev",
+        "sonata-project/block-bundle": "2.3.@dev",
         "sonata-project/translation-bundle": "~2.3@dev"
     },
     "minimum-stability": "dev",
