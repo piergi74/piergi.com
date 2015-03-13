@@ -76,7 +76,7 @@ class DoctrineController extends Controller
       $mailer = $this->get('mailer');
       $message = $mailer->createMessage()
           ->setSubject('You have Completed Registration!')
-          ->setFrom('piergi@tiscali.it')
+          ->setFrom('piergiorgio.pili@gmail.com')
           ->setTo($data['email'])
           ->setBody($data['message'],
               'text/html'
