@@ -20,7 +20,7 @@ class PositionAdmin extends Admin
           ->add('user', 'entity', array('class' => 'PRG\FrontendBundle\Entity\User'))
           ->add('startDate', 'date', array('label' => 'Post Start date', 'pattern' => 'dd MMM Y G'))
           ->add('endDate', 'date', array('label' => 'Post End date', 'empty_value' => '', 'required' => false))
-          ->add('skills', 'sonata_type_model', array('expanded' => false, 'by_reference' => false, 'multiple' => true))
+          ->add('skills', 'sonata_type_model', array('expanded' => false, 'by_reference' => false, 'multiple' => true, 'required' => false))
       ;
   }
 
