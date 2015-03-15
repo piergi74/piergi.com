@@ -39,6 +39,7 @@ class Position extends AbstractTranslatable implements TranslatableInterface
      */
     protected $title;
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(type="string", length=10000)
      */
     protected $summary;
