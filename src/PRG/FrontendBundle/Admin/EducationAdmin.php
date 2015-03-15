@@ -12,14 +12,27 @@ class EducationAdmin extends Admin
   // Fields to be shown on create/edit forms
   protected function configureFormFields(FormMapper $formMapper)
   {
+    $years = array();
+    for ($y = date('Y') -25; $y <= date('Y');) {
+      $years[] = $y;
+      $y++;
+    }
+    //dump($years);die;
     $formMapper
       ->add('linkedinId', 'text', array('label' => 'Post Linkedin Id'))
       ->add('degree', 'text', array('label' => 'Post Degree'))
       ->add('fieldOfStudy', 'textarea', array('label' => 'Post Field of Study'))
       ->add('schoolName', 'textarea', array('label' => 'Post School Name'))
       ->add('user', 'entity', array('class' => 'PRG\FrontendBundle\Entity\User'))
-      ->add('startDate', 'date', array('label' => 'Post Start date', 'pattern' => 'dd MMM Y G'))
-      ->add('endDate', 'date', array('label' => 'Post End date', 'empty_value' => '', 'required' => false))
+      ->add('startDate', 'date', array('label' => 'Post Start date', 'pattern' => 'dd MMM Y G', 'years' => $years))
+      ->add('endDate', 'date', array(
+          //'widget' => 'single_text', 
+          //'format' => 'yyyy-MM',
+          'years' => $years,
+          'label' => 'Post End date', 
+          'empty_value' => '', 
+          'required' => false
+        ))
     ;
   }
 
@@ -40,7 +53,7 @@ class EducationAdmin extends Admin
           ->add('fieldOfStudy')
           ->add('schoolName')
           ->add('user')
-          ->add('startDate')
+          ->add('startDate', null, array('format' => 'M Y'))
           ->add('endDate')
           
       ;
