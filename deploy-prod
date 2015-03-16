@@ -1,8 +1,5 @@
 #!/bin/bash
 
-DIR_LOG=/var/www/git/piergi.com.git/
-cd $DIR_LOG
-
 git pull origin master;
 
 DIR_LOG=/var/www/vhosts/piergi.com/httpdocs/
