@@ -101,12 +101,18 @@ class DoctrineController extends Controller
    */
   public function updateAction(Request $request)
   {
-    //$locale = $request->getLocale();
+    $defaultLocale = $this->container->getParameter('locale');
+    
     //dump($locale);die;
+    
     $session = $request->getSession();
     $linkedinTokens = $session->get('linkedin_tokens');
     //$sessionAccessToken = $linkedinTokens['access_token'];
     //print_r('$sessionAccessToken: '.$sessionAccessToken);die;
+    
+    $session->set('_locale', $defaultLocale);
+    $locale = $session->get('_locale');
+    //dump('$locale = $session->set(_locale, $defaultLocale): '. $locale);die;
      
     $li = new LinkedIn(array(
         'api_key' => $this->container->getParameter('linkedin.api_key'), 
@@ -247,6 +253,11 @@ class DoctrineController extends Controller
 
   public function updateUser($info)
   {
+    $locale = $this->container->getParameter('locale');
+    //$session = $request->getSession();
+    //$locale = $session->get('_locale');
+    //dump('$locale = $session->get(_locale): '. $locale);
+    
     $repository = $this->getDoctrine()->getRepository('FrontendBundle:User');
     $user = $repository->findOneByLinkedinId($this->container->getParameter('linkedin.user_id'));
     
@@ -278,22 +289,26 @@ class DoctrineController extends Controller
           $existingPosition->setIsCurrent($position['isCurrent']);
           $existingPosition->setTitle($position['title']);
           $existingPosition->setSummary($position['summary']);
+          $existingPosition->setTranslatableLocale($locale);
           
           $existingLocation = $existingPosition->getLocation();
           if($existingLocation) {
             $existingLocation->setName($position['location']['name']);
             $existingLocation->setPosition($existingPosition);
+            $existingLocation->setTranslatableLocale($locale);
             if(isset($position['location']['country'])) {
               $existingCountry = $existingLocation->getCountry();
               if($existingCountry) {
                 $existingCountry->setCode($position['location']['country']['code']);
                 $existingCountry->setName($position['location']['country']['name']);
                 $existingCountry->setLocation($existingLocation);
+                $existingCountry->setTranslatableLocale($locale);
               } else {
                 $newCountry = new Country();
                 $newCountry->setCode($position['location']['country']['code']);
                 $newCountry->setName($position['location']['country']['name']);
                 $newCountry->setLocation($existingLocation);
+                $newCountry->setTranslatableLocale($locale);
                 //$existingLocation->setCountry($newCountry);              
               }
             }
@@ -303,11 +318,13 @@ class DoctrineController extends Controller
             $newLocation = new Location();
             $newLocation->setName($position['location']['name']);
             $newLocation->setPosition($existingPosition); 
+            $newLocation->setTranslatableLocale($locale);
             if(isset($position['location']['country'])) {
               $newCountry = new Country();
               $newCountry->setCode($position['location']['country']['code']);
               $newCountry->setName($position['location']['country']['name']);
               $newCountry->setLocation($newLocation);
+              $newCountry->setTranslatableLocale($locale);
             }
             $newLocation->setPosition($existingPosition);
             $existingPosition->setLocation($newLocation);
@@ -339,6 +356,7 @@ class DoctrineController extends Controller
           $newPosition->setIsCurrent($position['isCurrent']);
           $newPosition->setTitle($position['title']);
           $newPosition->setSummary($position['summary']);  
+          $newPosition->setTranslatableLocale($locale);
           
           $newLocation = new Location();
           $newLocation->setName($position['location']['name']);
@@ -355,6 +373,7 @@ class DoctrineController extends Controller
               $newCountry->setName($position['location']['country']['name']);
               $newCountry->setLocation($newLocation);
               $newLocation->setCountry($newCountry);
+              $newCountry->setTranslatableLocale($locale);
             } else {
               $newLocation->setCountry($existingCountry);
             }
@@ -387,6 +406,7 @@ class DoctrineController extends Controller
           $newSkill->setLinkedinId($skill['id']);
           $newSkill->setName($skill['skill']['name']);
           $newSkill->setUser($user);
+          $newSkill->setTranslatableLocale($locale);
           $user->addSkill($newSkill);
         }
       }
@@ -411,18 +431,21 @@ class DoctrineController extends Controller
             $newEducation->setStartDate(new \DateTime(date('Y-m-d', mktime(0,0,0,$educationStartMonth,1,$education['startDate']['year']))));
           $newEducation->setUser($user);
           $user->addEducation($newEducation);
+          $newEducation->setTranslatableLocale($locale);
         } else {
           $existingEducation->setDegree($education['degree']);
           if(isset($education['fieldOfStudy']))
             $existingEducation->setFieldOfStudy($education['fieldOfStudy']);
           $existingEducation->setSchoolName($education['schoolName']);  
           if(isset($education['startDate']))
-            $existingEducation->setStartDate(new \DateTime(date('Y-m-d', mktime(0,0,0,$educationStartMonth,1,$education['startDate']['year']))));          
+            $existingEducation->setStartDate(new \DateTime(date('Y-m-d', mktime(0,0,0,$educationStartMonth,1,$education['startDate']['year']))));     
+          $existingEducation->setTranslatableLocale($locale);
         }
       }
     }
     
-    //$user->setTranslatableLocale($locale); // change locale
+    $user->setTranslatableLocale($locale); // set locale to default
+    //dump('$user->setTranslatableLocale($locale): ' . $locale);
     
     $em = $this->getDoctrine()->getManager();
     $em->persist($user);
