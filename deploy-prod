@@ -1,9 +1,15 @@
 #!/bin/bash
 
+DIR_LOG=/var/www/git/piergi.com.git/
+cd $DIR_LOG
+
 git pull origin master;
-php app/console --env=prod prg:deploy-website ../piergi.com.git/ localhost -mpiergi_production -ursyncadmin -econfig/rsync_exclude.txt --go --delete
 
 DIR_LOG=/var/www/vhosts/piergi.com/httpdocs/
 cd $DIR_LOG
 
-php app/console cache:clear
+php app/console --env=prod prg:deploy-website /var/www/git/piergi.com.git/ localhost -mpiergi_production -ursyncadmin -econfig/rsync_exclude.txt --go --delete;
+
+php app/console cache:clear;
+
+chmod -R 777 app/cache app/logs;
