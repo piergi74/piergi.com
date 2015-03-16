@@ -6,7 +6,7 @@
     {% if education.fieldOfStudy is defined %}
       <h3>{{ education.fieldOfStudy }}</h3> 
     {% endif %}          
-    {% if (education.startDate is defined) and (education.endDate is defined) %}
+    {% if (education.startDate is not null) and (education.endDate is not null) %}
       {% if (education.startDate.year is defined) %}
         {% set startDate = education.startDate.year %}
         {% set endDate = education.endDate.year %}
@@ -14,14 +14,14 @@
       {% else %}
         <p>{{ education.startDate|date('Y') }} - {{ education.endDate|date('Y') }}</p>
       {% endif %}           
-    {% elseif education.startDate is defined %} 
+    {% elseif education.startDate is not null %} 
       {% if (education.startDate.year is defined) %}
         {% set startDate = education.startDate.year %}
         <p>{{ startDate }}</p>
       {% else %}
         <p>{{ startDate|date('Y') }}</p>
       {% endif %}          
-    {% elseif education.endDate is defined %}
+    {% elseif education.endDate is not null %}
       {% if (education.endDate.year is defined) %}
         {% set endDate = education.endDate.year %}
         <p>{{ endDate }}</p> 
