@@ -4,7 +4,7 @@
 /web/*_dev.php
 /web/uploads/*
 deploy-prod
-/vendor/*
+/vendor
 /web/bundles/
 /nbproject/
 .gitignore
