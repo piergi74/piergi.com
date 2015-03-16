@@ -281,7 +281,7 @@ class DoctrineController extends Controller
             ->getRepository('FrontendBundle:Position')
             ->findOneByLinkedinId($position['id'])
         ;
-        $startMonth = ($position['startDate']['month']) ? $position['startDate']['month'] : 0;
+        $startMonth = ($position['startDate']['month']) ? $position['startDate']['month'] : 1;
         
         
         if($existingPosition) {
@@ -344,7 +344,7 @@ class DoctrineController extends Controller
           
           $existingPosition->setStartDate(new \DateTime(date('Y-m-d', mktime(0,0,0,$startMonth,1,$position['startDate']['year']))));
           if(isset($position['endDate'])) {
-            $endMonth = ($position['endDate']['month']) ? $position['endDate']['month'] : 0;
+            $endMonth = ($position['endDate']['month']) ? $position['endDate']['month'] : 1;
             $existingPosition->setEndDate(new \DateTime(date('Y-m-d', mktime(0,0,0,$endMonth,1,$position['endDate']['year']))));
           }
 
@@ -418,7 +418,8 @@ class DoctrineController extends Controller
             ->getRepository('FrontendBundle:Education')
             ->findOneByLinkedinId($education['id'])
         ;  
-        $educationStartMonth = (isset($education['startDate']['month'])) ? $education['startDate']['month'] : 0;
+        $educationStartMonth = (isset($education['startDate']['month'])) ? $education['startDate']['month'] : 1;
+        $educationEndMonth = (isset($education['endDate']['month'])) ? $education['endDate']['month'] : 1;
         if(!$existingEducation) {
           $newEducation = new Education();
           $newEducation->setLinkedinId($education['id']);
@@ -429,6 +430,8 @@ class DoctrineController extends Controller
           
           if(isset($education['startDate']))
             $newEducation->setStartDate(new \DateTime(date('Y-m-d', mktime(0,0,0,$educationStartMonth,1,$education['startDate']['year']))));
+          if(isset($education['endDate']))
+            $newEducation->setEndDate(new \DateTime(date('Y-m-d', mktime(0,0,0,$educationEndMonth,1,$education['endDate']['year']))));
           $newEducation->setUser($user);
           $user->addEducation($newEducation);
           $newEducation->setTranslatableLocale($locale);
@@ -438,7 +441,9 @@ class DoctrineController extends Controller
             $existingEducation->setFieldOfStudy($education['fieldOfStudy']);
           $existingEducation->setSchoolName($education['schoolName']);  
           if(isset($education['startDate']))
-            $existingEducation->setStartDate(new \DateTime(date('Y-m-d', mktime(0,0,0,$educationStartMonth,1,$education['startDate']['year']))));     
+            $existingEducation->setStartDate(new \DateTime(date('Y-m-d', mktime(0,0,0,$educationStartMonth,1,$education['startDate']['year']))));
+          if(isset($education['endDate']))
+            $existingEducation->setEndDate(new \DateTime(date('Y-m-d', mktime(0,0,0,$educationEndMonth,1,$education['endDate']['year']))));     
           $existingEducation->setTranslatableLocale($locale);
         }
       }
