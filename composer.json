@@ -21,8 +21,8 @@
 
         "linkedinapi/linkedin": "dev-master",
         "gedmo/doctrine-extensions": "dev-master",
-        "sonata-project/admin-bundle": "2.4.@dev",
-        "sonata-project/doctrine-orm-admin-bundle": "2.4.@dev",
+        "sonata-project/admin-bundle": "~2.4@dev",
+        "sonata-project/doctrine-orm-admin-bundle": "~2.4@dev",
         "sonata-project/translation-bundle": "2.3.*"
     },
     "minimum-stability": "dev",
