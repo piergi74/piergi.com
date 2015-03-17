@@ -17,11 +17,12 @@
       
     <div id="navbar" class="navbar-collapse collapse">
       
-      {% if app.environment == 'dev' %}
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#about">{% trans %}About{% endtrans %}</a></li>
-          <li><a href="#contact">{% trans %}Contact{% endtrans %}</a></li>
+      
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#about">{% trans %}About{% endtrans %}</a></li>
+        <li><a href="#contact">{% trans %}Contact{% endtrans %}</a></li>
+        {% if app.environment == 'dev' %}
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{% trans %}Filter by{% endtrans %} <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
@@ -37,8 +38,9 @@
               <li id="at"><a href="#">{% trans %}Austria{% endtrans %}</a></li>
             </ul>
           </li>
-        </ul>
-      {% endif %} 
+        {% endif %} 
+      </ul>
+      
           
       <ul class="nav navbar-nav navbar-right">
         <li class="{%if locale == 'en'%}active{%endif%}"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}">English <span class="sr-only">(current)</span></a></li>
