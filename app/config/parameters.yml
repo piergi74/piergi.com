@@ -8,7 +8,7 @@ parameters:
     database_password: null
     mailer_transport: smtp
     mailer_host: 127.0.0.1
-    mailer_user: piergiorgio.pili@gmail.com
+    mailer_user: "piergiorgio.pili@gmail.com"
     mailer_password: "muzzigol"
     locale: en
     secret: c8019725f603b84d2a7d405aad893fd7dbcdb54b
