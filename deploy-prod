@@ -7,6 +7,6 @@ cd $DIR_LOG
 
 php app/console --env=prod prg:deploy-website /var/www/git/piergi.com.git/ localhost -mpiergi_production -ursyncadmin -eapp/config/rsync_exclude.txt --go --delete;
 
-php app/console cache:clear --env=prod
+php app/console cache:clear --env=prod;
 
 chmod -R 777 app/cache app/logs;
