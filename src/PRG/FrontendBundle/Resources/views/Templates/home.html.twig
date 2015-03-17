@@ -51,4 +51,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
   <script src="{{ asset('bundles/frontend/js/main.js') }}"></script> 
+  
+  {% if app.environment == 'prod' %}
+    {% include 'FrontendBundle:Templates/Partials:analytics.html.twig' %} 
+  {% endif %}     
 {% endblock %}
