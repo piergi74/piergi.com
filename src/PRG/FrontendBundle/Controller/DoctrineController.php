@@ -45,6 +45,7 @@ class DoctrineController extends Controller
     //dump($user);die;
     
     $name = $this->get('translator')->trans('name');
+    $email = $this->get('translator')->trans('email');
     $message = $this->get('translator')->trans('message');
     $send = $this->get('translator')->trans('send');
 
@@ -52,7 +53,7 @@ class DoctrineController extends Controller
     
     $form = $this->createFormBuilder($defaultData)
         ->add('name', 'text', array('label' => $name))
-        ->add('email', 'email')
+        ->add('email', 'email', array('label' => $email))
         ->add('message', 'textarea', array('label' => $message))
         ->add('send', 'submit', array('label' => $send))
         ->getForm()
@@ -75,8 +76,8 @@ class DoctrineController extends Controller
 
       $mailer = $this->get('mailer');
       $message = $mailer->createMessage()
-          ->setSubject('You have Completed Registration!')
-          ->setFrom('piergiorgio.pili@gmail.com')
+          ->setSubject('New email from piergi.com')
+          ->setFrom($data['from'])
           ->setTo($data['email'])
           ->setBody($data['message'],
               'text/html'

@@ -56,7 +56,7 @@
             </trans-unit>
             <trans-unit id="14">
                 <source>Contact form</source>
-                <target>Contact form</target>
+                <target>Contattami via email</target>
             </trans-unit>
             <trans-unit id="15">
                 <source>name</source>
@@ -125,7 +125,19 @@
             <trans-unit id="31">
                 <source>present</source>
                 <target>oggi</target>
-            </trans-unit>            
+            </trans-unit>    
+            <trans-unit id="32">
+                <source>email</source>
+                <target>Email</target>
+            </trans-unit>   
+            <trans-unit id="33">
+                <source>Enter name</source>
+                <target>Inserisci qui il tuo nome</target>
+            </trans-unit> 
+            <trans-unit id="34">
+                <source>Enter email</source>
+                <target>Inserisci qui la tua email</target>
+            </trans-unit>                             
         </body>
     </file>
 </xliff>

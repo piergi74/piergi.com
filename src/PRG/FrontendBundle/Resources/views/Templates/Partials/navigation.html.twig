@@ -16,26 +16,30 @@
     </div>
       
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#about">{% trans %}About{% endtrans %}</a></li>
-        <li><a href="#contact">{% trans %}Contact{% endtrans %}</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{% trans %}Filter by{% endtrans %} <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li class="dropdown-header">{% trans %}Position{% endtrans %}</li>
-            <li><a href="#">{% trans %}Web developer{% endtrans %}</a></li>
-            <li><a href="#">{% trans %}Travel consultant{% endtrans %}</a></li>
-            <li class="divider"></li>
-            <li class="dropdown-header">{% trans %}Country{% endtrans %}</li>
-            <li id="it"><a href="#">{% trans %}Italy{% endtrans %}</a></li>
-            <li id="gb"><a href="#">{% trans %}United Kingdom{% endtrans %}</a></li>
-            <li id="fr"><a href="#">{% trans %}France{% endtrans %}</a></li>
-            <li id="cz"><a href="#">{% trans %}Czech Republic{% endtrans %}</a></li>
-            <li id="at"><a href="#">{% trans %}Austria{% endtrans %}</a></li>
-          </ul>
-        </li>
-      </ul>
+      
+      {% if app.environment == 'dev' %}
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#about">{% trans %}About{% endtrans %}</a></li>
+          <li><a href="#contact">{% trans %}Contact{% endtrans %}</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{% trans %}Filter by{% endtrans %} <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li class="dropdown-header">{% trans %}Position{% endtrans %}</li>
+              <li><a href="#">{% trans %}Web developer{% endtrans %}</a></li>
+              <li><a href="#">{% trans %}Travel consultant{% endtrans %}</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">{% trans %}Country{% endtrans %}</li>
+              <li id="it"><a href="#">{% trans %}Italy{% endtrans %}</a></li>
+              <li id="gb"><a href="#">{% trans %}United Kingdom{% endtrans %}</a></li>
+              <li id="fr"><a href="#">{% trans %}France{% endtrans %}</a></li>
+              <li id="cz"><a href="#">{% trans %}Czech Republic{% endtrans %}</a></li>
+              <li id="at"><a href="#">{% trans %}Austria{% endtrans %}</a></li>
+            </ul>
+          </li>
+        </ul>
+      {% endif %} 
+          
       <ul class="nav navbar-nav navbar-right">
         <li class="{%if locale == 'en'%}active{%endif%}"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}">English <span class="sr-only">(current)</span></a></li>
         <li class="{%if locale == 'it'%}active{%endif%}"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'it'})) }}">Italiano </a></li>
