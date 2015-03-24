@@ -77,11 +77,9 @@ class DoctrineController extends Controller
       $mailer = $this->get('mailer');
       $message = $mailer->createMessage()
           ->setSubject('New email from piergi.com')
-          ->setFrom($data['from'])
-          ->setTo($data['email'])
-          ->setBody($data['message'],
-              'text/html'
-          )
+          ->setFrom($data['email'])
+          ->setTo($this->container->getParameter('mailer_user'))
+          ->setBody($data['message'], 'text/html')
           /*
            * If you also want to include a plaintext version of the message
           ->addPart(
