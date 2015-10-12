@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:fb="http://ogp.me/ns/fb#">
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <meta property="og:image" content="{{ asset('bundles/frontend/images/image5_carousel_1600x600.jpg', absolute=true) }}" />
     </head>
     <body>
         {% block body %}{% endblock %}
